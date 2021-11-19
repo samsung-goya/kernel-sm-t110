@@ -148,6 +148,4 @@ source "drivers/devfreq/Kconfig"
 
 source "drivers/nfc/Kconfig"
 
-source "drivers/marvell/Kconfig"
-
 endmenu

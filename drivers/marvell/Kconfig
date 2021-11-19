@@ -1,2 +1,0 @@
-config USES_IN_KERNEL_GC1000
-	bool "Use in-kernel GC1000 GPU driver"
