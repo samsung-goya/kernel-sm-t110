@@ -14,13 +14,15 @@ jobs:
     - name: Download ARM Toolchain
       run: |
         sudo git clone --depth 1 --branch android-4.4.4_r2.0.1 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.6 /opt/toolchains/arm-eabi-4.6/
+
     - name: Build Kernel
       run: |
         make -j$(nproc --all) mrproper
-        make -j$(nproc --all) pxa986_goyawifi_rev02_defconfig
+        make -j$(nproc --all) teamwin_goya_defconfig
         make -j$(nproc --all) zImage
+
     - name: Upload zImage as Build Artifact
       uses: actions/upload-artifact@v2
       with:
         name: prebuilt_zImage
-        path: /home/runner/work/kernel-sm-t110/kernel-sm-t110/arch/arm/boot/zImage
+        path: /home/runner/work/twrp_kernel_samsung_goya/twrp_kernel_samsung_goya/arch/arm/boot/zImage
