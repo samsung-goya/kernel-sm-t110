@@ -113,4 +113,183 @@ config CPU_MMP2
 	select CPU_PJ4
 	help
 	  Select code specific to MMP2. MMP2 is ARMv7 compatible.
+
+config CPU_MMP3
+	bool
+	select CACHE_TAUROS3
+	select CPU_PJ4B
+	select ARM_GIC
+	select HAVE_SMP
+	select LOCAL_TIMERS if SMP
+	help
+	  Select code specific to MMP3. MMP3 is ARMv7 compatible, and support SMP.
+
+config CPU_EDEN
+	bool
+	select CPU_CA7MP
+	select ARCH_PROVIDES_UDELAY
+	select ARM_HAS_SG_CHAIN
+	help
+	  Support for EDEN processors based on the ARM Cortex-A7 MP CPU.
+	  Select code specific to EDEN
+
+config CPU_CA9MP
+	bool
+	select CPU_V7
+	select ARM_GIC
+	select HAVE_SMP
+	help
+	  Select code specific to Cortex A9
+
+config CPU_CA7MP
+	bool
+	select CPU_V7
+	select ARM_GIC
+	select HAVE_SMP
+	help
+	  Select code specific to Cortex A7
+
+config USB_EHCI_MV_U2O
+        bool "EHCI support for PXA USB OTG controller"
+	depends on USB_EHCI_MV
+	help
+	  Enables support for OTG controller which can be switched to host mode.
+
+config EOF_FC_WORKAROUND
+	bool
+	help
+	  Enables EOF workaround for DDR freq-change.
+
+config DISP_DFC
+	bool
+	help
+	  Enables display dynamic frequency change to avoid EMI.
+
+config CORE_1248
+	bool "Enable 1248M cpu frequency"
+	help
+	  Support 1248M PLL1 cpu frequency or not
+
+config DDR_FC_HARDWARE
+	bool
+	help
+	  Enables hw DFC in LCD V-Blank feature
+
+config CORESIGHT_SUPPORT
+	bool "support coresight features"
+	depends on CPU_PM
+	help
+	  Support coresight features such as dump pcsr, trigger panic etc.
+
+config CORESIGHT_TRACE_SUPPORT
+	bool "support save/restore coresight trace setting when enter/exit LPM"
+	depends on CPU_PM && CORESIGHT_SUPPORT
+	help
+	  Enables support save/restore coresight trace setting when enter/exit LPM.
+
+config APB_LOCALTIMER
+        bool "Provide localtimer support using apb timers"
+        help
+          Enables localtimer using apb timers
+
+config TZ_HYPERVISOR
+	bool "Enable TrustZone security feature"
+	help
+	  This option enables TrustZone security feature. With TrustZone
+	  enabled, the kernel will run under non-secure state and access
+	  secure resources via TZLC (TrustZone light calling).
+
+config RECOVERY_KERNEL
+        bool "reset reboot-recovery flag on each reboot"
+        help
+          Build a kernel that, by default, resets reboot-recovery flag
+          and prevent us to be stuck on recovery (useful for custom recoveries)
+		  
+config BOOST_SUPPORT
+	bool "support touch boost feature"
+	help
+	  Enables support touch boost feature.
+
+choice
+	prompt "Support dynamic CPU Hotplug"
+	depends on HOTPLUG_CPU
+	default NO_HOTPLUG_POLICY
+
+config MMP_ORIGINAL_POLICY
+	bool "MMP dual core Hotplug policy"
+	depends on CPU_PXA988
+	help
+	  PM hotplug policy.
+	  This hotplug policy is first used policy on MMP platform.
+
+config STAND_ALONE_POLICY
+	bool "Stand alone CPU hotplug policy"
+	help
+	  PM hotplug policy.
+	  Enable to use pm hotplug, then it uses stand-hotplug.c file.
+	  Avg-load is calculated with both cpu frequency aspect
+	  and run queue status.
+
+config NO_HOTPLUG_POLICY
+	bool "NO automatic CPU hotplug policy"
+	help
+	  PM hotplug policy
+	  Do not select an automatic hotplug policy
+endchoice
+
+config SEC_MODEM
+	bool "Samsung Modem driver"
+
+if SEC_MODEM
+comment "Samsung Modem Feature"
+
+config SEC_MODEM_DELOS3GVIA
+	bool "PXA1088 with CBP82 PLD_SPI"
+
+config CDMA_MODEM_CBP82
+	bool "modem chip : VIA CBP8.2"
+
+config LINK_DEVICE_PLD
+	bool "modem driver link device PLD"
+
+config ONECHIP_DUAL_MODEM
+	bool "(AP+CP)+CP2"
+	default n
+endif
+
+endif
+
+comment "Debugging Feature"
+menuconfig SEC_DEBUG
+	bool "Samsung TN Ramdump Feature"
+	default y
+	help
+	  Samsung TN Ramdump Feature. Use INFORM3 and magic number at 0xc0000000.
+
+if SEC_DEBUG
+config SEC_DEBUG_SCHED_LOG
+	bool "Samsung Scheduler Logging Feature"
+	default n
+	help
+	  Samsung Scheduler Logging Feature for Debug use.
+
+config SEC_DEBUG_SOFTIRQ_LOG
+	bool "Samsung Softirq Logging Feature"
+	default n
+	depends on SEC_DEBUG_SCHED_LOG
+	help
+	  Samsung Softirq Logging Feature for Debug use.
+	  This option enables us to log softirq enter/exit.
+	  It is not only hard-irq which results in scheduler lockup,
+	  To be more clear we need to see also softirq logs.
+
+config SEC_DEBUG_TIMER_LOG
+	bool "Samsung Timer Logging Feature"
+	default n
+	help
+	  Samsung Timer Logging Feature for Debug use.
+
+config SEC_LOG
+	bool "Samsung log buffer"
+	default n
 endif
