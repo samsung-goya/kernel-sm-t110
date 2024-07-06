@@ -17,9 +17,9 @@ jobs:
 
     - name: Build Kernel
       run: |
-        make ARCH=arm -j$(nproc --all) distclean
-        make ARCH=arm -j$(nproc --all) teamwin_goya_defconfig
-        make ARCH=arm -j$(nproc --all) zImage
+        make CROSS_COMPILE=/opt/toolchains/arm-eabi-4.7/bin/arm-eabi- ARCH=arm -j$(nproc --all) distclean
+        make CROSS_COMPILE=/opt/toolchains/arm-eabi-4.7/bin/arm-eabi- ARCH=arm -j$(nproc --all) teamwin_goya_defconfig
+        make CROSS_COMPILE=/opt/toolchains/arm-eabi-4.7/bin/arm-eabi- ARCH=arm -j$(nproc --all) zImage
 
     - name: Upload zImage as Build Artifact
       uses: actions/upload-artifact@v2
