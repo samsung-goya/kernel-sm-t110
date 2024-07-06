@@ -17,10 +17,9 @@ jobs:
 
     - name: Build Kernel
       run: |
-        export ARCH=arm
-        make -j$(nproc --all) mrproper
-        make -j$(nproc --all) teamwin_goya_defconfig
-        make -j$(nproc --all) zImage
+        make ARCH=arm -j$(nproc --all) distclean
+        make ARCH=arm -j$(nproc --all) teamwin_goya_defconfig
+        make ARCH=arm -j$(nproc --all) zImage
 
     - name: Upload zImage as Build Artifact
       uses: actions/upload-artifact@v2
