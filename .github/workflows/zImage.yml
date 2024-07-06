@@ -13,13 +13,14 @@ jobs:
 
     - name: Download ARM Toolchain
       run: |
+        sudo apt-get install lib32z1
         sudo git clone --depth 1 --branch android-4.4.4_r2.0.1 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7 /opt/toolchains/arm-eabi-4.7/
 
     - name: Build Kernel
       run: |
-        make CROSS_COMPILE=/opt/toolchains/arm-eabi-4.7/bin/arm-eabi- ARCH=arm -j$(nproc --all) distclean
-        make CROSS_COMPILE=/opt/toolchains/arm-eabi-4.7/bin/arm-eabi- ARCH=arm -j$(nproc --all) teamwin_goya_defconfig
-        make CROSS_COMPILE=/opt/toolchains/arm-eabi-4.7/bin/arm-eabi- ARCH=arm -j$(nproc --all) zImage
+        make CROSS_COMPILE=/opt/toolchains/arm-eabi-4.7/bin/arm-eabi- ARCH=arm distclean
+        make CROSS_COMPILE=/opt/toolchains/arm-eabi-4.7/bin/arm-eabi- ARCH=arm teamwin_goya_defconfig
+        make CROSS_COMPILE=/opt/toolchains/arm-eabi-4.7/bin/arm-eabi- ARCH=arm zImage
 
     - name: Upload zImage as Build Artifact
       uses: actions/upload-artifact@v2
