@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     steps:
     - name: Checkout Kernel Source
@@ -25,4 +25,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: prebuilt_zImage
-        path: /home/runner/work/twrp_kernel_samsung_goya/twrp_kernel_samsung_goya/arch/arm/boot/zImage
+        path: /home/runner/work/kernel-sm-t110/kernel-sm-t110/arch/arm/boot/zImage
