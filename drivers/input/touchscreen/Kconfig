@@ -845,55 +845,6 @@ config TOUCHSCREEN_TPS6507X
 	  To compile this driver as a module, choose M here: the
 	  module will be called tps6507x_ts.
 
-config TOUCHSCREEN_MMS136_TS
-       tristate "MELFAS MMS-136 touchscreen driver"
-       depends on I2C
-       default n
-       help
-         Say Y here if you have a MELFAS MMS-100 series touchscreen.
-
-         If unsure, say N.
-
-config TOUCHSCREEN_MXT224S
-	tristate "Atmel MaxTouch 224S"
-	depends on I2C
-	default n
-	help
-	  Say Y here to enable support for the Atmel MaxTouch 224 touch
-	  controller.
-
-	  If unsure, say N.
-
-	  To compile this driver as a module, choose M here: the
-	  module will be called mxt336S.
-
-config TOUCHSCREEN_BT432_TS
-       tristate "ZINITIX BT432 touchscreen driver"
-       depends on I2C
-       default n
-       help
-         Say Y here if you have a ZINITIX BT432 touchscreen.
-
-         If unsure, say N.
-         
-config TOUCHSCREEN_BT531_TS
-       tristate "ZINITIX BT531 touchscreen driver"
-       depends on I2C
-       default n
-       help
-         Say Y here if you have a ZINITIX BT531 touchscreen.
-
-         If unsure, say N.
-	 
-config TOUCHSCREEN_BT532_TS
-	bool "ZINITIX BT532 touchscreen driver"
-	depends on I2C
-	default n
-	help
-	  Say Y here if you have a ZINITIX BT532 touchscreen.
-
-	  If unsure, say N.	  
-
 config TOUCHSCREEN_BT532_TS_ORIENTATION
 	int "ZINITIX BT532 touchscreen driver orientation"
 	depends on TOUCHSCREEN_BT532_TS
