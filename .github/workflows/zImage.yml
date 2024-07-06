@@ -17,6 +17,7 @@ jobs:
 
     - name: Build Kernel
       run: |
+        export ARCH=arm
         make -j$(nproc --all) mrproper
         make -j$(nproc --all) teamwin_goya_defconfig
         make -j$(nproc --all) zImage
